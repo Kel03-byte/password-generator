@@ -36,9 +36,9 @@ function generatePassword(lower, upper, number, symbol, length) {
 	var typesCount = lower + upper + number + symbol;
 	var typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0]);
 	
-//If there is nothing checked then the function will not exacute
+//If there is nothing checked then the page will display an alert
 	if(typesCount === 0) {
-    return '';
+		window.alert("Please pick an option");
 	}
 	
 	// creates the loop for the random generators which is stopped after user deterimed length of characters

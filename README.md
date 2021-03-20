@@ -32,5 +32,5 @@ THEN the password is either displayed in an alert or written to the page
 ```
 
 github: https://github.com/Kel03-byte/password-generator
-delpoyed website:
-Screenshot of the deployed website:
+delpoyed website: https://kel03-byte.github.io/password-generator/
+screenshot of deployed website:
