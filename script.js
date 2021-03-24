@@ -1,76 +1,112 @@
-// Assignment Code
+var confirmNumber;
+var confirmCharacter;
+var confirmUppercase;
+var confirmLowercase;
+var enter = document.getElementById('generate');
+
+//The Array of variables for the generator to pick from
+character = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
+
+number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+lower = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+upper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
 
-//Assigns each password criteria, the click button and the actual password to an element
-var passwordEl= document.getElementById('password');
-var lengthEl = document.getElementById('length');
-var uppercaseEl = document.getElementById('uppercase');
-var lowercaseEl = document.getElementById('lowercase');
-var numbersEl = document.getElementById('numbers');
-var symbolsEl = document.getElementById('symbols');
-var generateEl = document.getElementById('generate');
-
-//Assigns each password criteria to a key in order to create the function
-var randomFunc = {
-	lower: getRandomLower,
-	upper: getRandomUpper,
-	number: getRandomNumber,
-	symbol: getRandomSymbol
-}
-
-//Event - when the check boxes are clicked then procedde with the embedded function
-generate.addEventListener('click', () => {
-	var length = +lengthEl.value;
-	var hasLower = lowercaseEl.checked;
-	var hasUpper = uppercaseEl.checked;
-	var hasNumber = numbersEl.checked;
-	var hasSymbol = symbolsEl.checked;
-	
-	passwordEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
+enter.addEventListener("click", function () {
+	ps = generatePassword();
+	document.getElementById("password").placeholder = ps;
 });
 
+function generatePassword() {
+	enter = window.prompt("How many characters so you require for your password? (Needs to be a number between 8 10 128)")
+	if (!enter) {
+		alert("This needs a number");
 
-//This is the function to combine the randomly generatored string in one string which is determined by the length selected by the user
-function generatePassword(lower, upper, number, symbol, length) {
-	let generatedPassword = '';
-	var typesCount = lower + upper + number + symbol;
-	var typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0]);
-	
-//If there is nothing checked then the page will display an alert
-	if(typesCount === 0) {
-		window.alert("Please pick an option");
+	} else if (enter < 8 || enter > 128) {
+		enter = window.prompt("You need to choose between 8 and 128");
+
+	} else {
+		confirmNumber = confirm("Will this contain numbers?");
+		confirmCharacter = confirm("Will this contain special characters?");
+		confirmUppercase = confirm("Will this contain Uppercase letters?");
+		confirmLowercase = confirm("Will this contain Lowercase letters?");
+
+		//If none of the options are confirmed
+		if (!confirmCharacter && !confirmNumber && !confirmUppercase && !confirmLowercase) {
+			choices = alert("You must choose at least one option!");
+
+		}
+		//When all four options are confirmed
+		else if (confirmCharacter && confirmNumber && confirmUppercase && confirmLowercase) {
+			choices = character.concat(number, lower, upper);
+		}
+
+		//When three options are confirmed
+		else if (confirmCharacter && confirmNumber && confirmUppercase) {
+			choices = character.concat(number, upper);
+		}
+		else if (confirmCharacter && confirmNumber && confirmLowercase) {
+			choices = character.concat(number, lower);
+		}
+		else if (confirmCharacter && confirmLowercase && confirmUppercase) {
+			choices = character.concat(lower, upper);
+		}
+		else if (confirmNumber && confirmLowercase && confirmUppercase) {
+			choices = number.concat(lower, upper);
+		}
+
+		//When two options are confirmed
+		else if (confirmCharacter && confirmNumber) {
+			choices = character.concat(number);
+
+		} else if (confirmCharacter && confirmLowercase) {
+			choices = character.concat(lower);
+
+		} else if (confirmCharacter && confirmUppercase) {
+			choices = character.concat(upper);
+		}
+		else if (confirmLowercase && confirmNumber) {
+			choices = lower.concat(number);
+
+		} else if (confirmLowercase && confirmUppercase) {
+			choices = lower.concat(upper);
+
+		} else if (confirmNumber && confirmUppercase) {
+			choices = number.concat(upper);
+		}
+
+		//When one option is confirmed
+		else if (confirmCharacter) {
+			choices = character;
+		}
+		else if (confirmNumber) {
+			choices = number;
+		}
+		else if (confirmLowercase) {
+			choices = lower;
+		}
+
+		else if (confirmUppercase) {
+			choices = upper;
+		}
+	};
+	var password = [];
+
+	// Random selection for all variables: 
+	for (var i = 0; i < enter; i++) {
+		var pickChoices = choices[Math.floor(Math.random() * choices.length)];
+		password.push(pickChoices);
 	}
-	
-	// creates the loop for the random generators which is stopped after user deterimed length of characters
-	for(let i=0; i<length; i+=typesCount) {
-		typesArr.forEach(type => {
-			var funcName = Object.keys(type)[0];
-			generatedPassword += randomFunc[funcName]();
-		});
-	}
-	//gives the final result as "final password"
-	var finalPassword = generatedPassword.slice(0, length);
-	
-	return finalPassword;
-}
 
-//Function to generate random lowercase letters using the Charcter Code Chart
-function getRandomLower() {
-	return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+	//This converts the array of rthe radom variables selected into one string
+	var ps = password.join("");
+	UserInput(ps);
+	return ps;
 }
+// This puts the actual password value into the textbox
+function UserInput(ps) {
+	document.getElementById("password").textContent = ps;
 
-//Function to generate radom uppercase letters using the Character Code Chart
-function getRandomUpper() {
-	return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-}
-
-//Function to generate random numbers using the Character Code Chart
-function getRandomNumber() {
-	return +String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-}
-
-//Function using an Array which contains the symbols which are standard use in passwords (you can delete or add more symbols if needed)
-function getRandomSymbol() {
-	var symbols = '!@#$%^&*(){}[]=<>/,.'
-	return symbols[Math.floor(Math.random() * symbols.length)];
 }
