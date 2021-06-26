@@ -15,7 +15,7 @@ body,
 body {
   font-family: sans-serif;
   background-color: #f9fbfd;
-  background-image: url(./background.jpg);
+  background-image: url(./images/background.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -27,7 +27,7 @@ header {
   color: white ;
 }
 
-.checkbox {
+.card {
   position: relative;
   left: 30%;
   border: solid 3px;
@@ -45,19 +45,6 @@ header {
   justify-content: space-between;
 	align-items: center;
 	margin: 15px 0;
-}
-
-
-.card {
-  background-color: hsl(0, 0%, 100%);
-  border-radius: 5px;
-  border-width: 1px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px 0px;
-  color: hsl(206, 17%, 28%);
-  font-size: 18px;
-  margin: 0 auto;
-  width: fit-content;
-  padding: 30px 40px;
 }
 
 .card-header::after {
@@ -96,12 +83,12 @@ header {
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
     0px;
-  color: hsl(0, 0%, 100%);
+  color: white;
   display: inline-block;
   font-size: 22px;
   line-height: 22px;
-  margin: 16px 16px 16px 20px;
-  padding: 14px 34px;
+  margin: 20px 20px 20px 20px;
+  padding: 15px 30px;
   text-align: center;
   cursor: pointer;
 }
@@ -116,12 +103,9 @@ button[disabled] {
 }
 
 #password {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   position:absolute;
   border: none;
-  left: 90px;
+  left: 70px;
   display: block;
   width: fit-content;
   padding-top: 5px;

@@ -100,7 +100,7 @@ function generatePassword() {
 		password.push(pickChoices);
 	}
 
-	//This converts the array of rthe radom variables selected into one string
+	//This converts the array of the random variables selected into one string
 	var ps = password.join("");
 	UserInput(ps);
 	return ps;
